@@ -13,7 +13,7 @@ const mongoPassword = encodeURIComponent(process.env.MONGO_PASS);
 const mongocluster = process.env.MONGO_CLUSTER;
 const mongoAuthSource = process.env.MONGO_AUTH_SOURCE;
 const mongoAuthMechanism = process.env.MONGO_AUTH_MECHANISM;
-let uri = `mongodb+srv://${mongoUsername}:${mongoPassword}@${mongocluster}/?authSource=${mongoAuthSource}&authMechanism=${mongoAuthMechanism}`;
+let uri = `mongodb+srv://${mongoUsername}:${mongoPassword}@openchat.zvgfv36.mongodb.net/?retryWrites=true&w=majority&appName=openchat`;
 mongoose.connect(uri || 'mongodb://localhost:27017/sample-db',);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
