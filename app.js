@@ -7,7 +7,14 @@ const app = express();
 const bodyParser = require("body-parser");
 const userRoutes = require("./routes/user");
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/sample-db',);
+
+const mongoUsername = encodeURIComponent(process.env.MONGO_USER);
+const mongoPassword = encodeURIComponent(process.env.MONGO_PASS);
+const mongocluster = process.env.MONGO_CLUSTER;
+const mongoAuthSource = process.env.MONGO_AUTH_SOURCE;
+const mongoAuthMechanism = process.env.MONGO_AUTH_MECHANISM;
+let uri = `mongodb+srv://${mongoUsername}:${mongoPassword}@${mongocluster}/?authSource=${mongoAuthSource}&authMechanism=${mongoAuthMechanism}`;
+mongoose.connect(uri || 'mongodb://localhost:27017/sample-db',);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => console.log('Connected to MongoDB'));
